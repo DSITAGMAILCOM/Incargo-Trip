@@ -12,7 +12,7 @@ const Booking = require("./models/Booking");
 const Itinerary = require("./models/Itinerary");
 
 async function seed() {
-  const mongoUri = process.env.MONGO_URI || process.env.MONGODB_URI;
+  const mongoUri = process.env.MONGO_URI || process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/incargo";
   await mongoose.connect(mongoUri);
   console.log("Connected to MongoDB");
 
