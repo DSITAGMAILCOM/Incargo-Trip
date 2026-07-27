@@ -1,0 +1,193 @@
+/*Overlay*/
+
+.trip-details-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(5px);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 1000;
+
+  animation: fadeIn 0.25s ease;
+}
+
+/* Modal*/
+
+.trip-details-modal {
+  width: 90%;
+  max-width: 700px;
+
+  background: #ffffff;
+  border-radius: 16px;
+
+  overflow: hidden;
+
+  box-shadow: 0 20px 60px rgba(0,0,0,.25);
+
+  animation: popup 0.3s ease;
+}
+
+/* Header*/
+
+.trip-details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 20px 25px;
+
+  background: #2563eb;
+  color: white;
+}
+
+.trip-details-header h2 {
+  margin: 0;
+}
+
+.close-btn {
+  border: none;
+  background: transparent;
+
+  color: white;
+
+  font-size: 22px;
+
+  cursor: pointer;
+
+  transition: .25s;
+}
+
+.close-btn:hover {
+  transform: rotate(90deg);
+}
+
+/* Body*/
+
+.trip-details-body {
+  padding: 25px;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  padding: 14px 0;
+
+  border-bottom: 1px solid #ececec;
+
+  gap: 20px;
+}
+
+.detail-row:last-child {
+  border-bottom: none;
+}
+
+.detail-row strong {
+  color: #1e293b;
+  min-width: 170px;
+}
+
+.detail-row span {
+  flex: 1;
+  color: #475569;
+}
+
+/* Status Badge*/
+
+.status {
+  padding: 6px 12px;
+
+  border-radius: 20px;
+
+  color: white;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  text-transform: capitalize;
+}
+
+.status.planned {
+  background: #2563eb;
+}
+
+.status.ongoing {
+  background: #f59e0b;
+}
+
+.status.completed {
+  background: #22c55e;
+}
+
+.status.cancelled {
+  background: #ef4444;
+}
+
+/*Tags*/
+
+.tag-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag {
+  background: #dbeafe;
+  color: #1d4ed8;
+
+  padding: 6px 12px;
+
+  border-radius: 20px;
+
+  font-size: 13px;
+
+  font-weight: 600;
+}
+
+/* Animations*/
+
+@keyframes popup {
+
+  from{
+    opacity:0;
+    transform:scale(.9);
+  }
+
+  to{
+    opacity:1;
+    transform:scale(1);
+  }
+
+}
+
+@keyframes fadeIn {
+
+  from{
+    opacity:0;
+  }
+
+  to{
+    opacity:1;
+  }
+
+}
+
+/*Responsive*/
+
+@media (max-width:768px){
+
+  .detail-row{
+    flex-direction:column;
+  }
+
+  .detail-row strong{
+    min-width:auto;
+  }
+
+}

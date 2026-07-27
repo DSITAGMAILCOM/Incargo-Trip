@@ -1,0 +1,49 @@
+.settings-card{
+    background:#fff;
+    border-radius:20px;
+    padding:35px;
+    box-shadow:0 12px 30px rgba(0,0,0,.08);
+}
+
+.settings-card h3{
+    margin-bottom:20px;
+    color:#222;
+}
+
+.setting-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px 0;
+    border-bottom:1px solid #eee;
+    font-size:17px;
+}
+
+.setting-row input{
+    width:20px;
+    height:20px;
+    cursor:pointer;
+}
+
+.setting-info{
+    margin:15px 0;
+    font-size:16px;
+}
+
+.save-settings-btn{
+    margin-top:30px;
+    padding:14px 25px;
+    border:none;
+    border-radius:12px;
+    background:linear-gradient(135deg,#ff8c1a,#ff6a00);
+    color:white;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.save-settings-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 20px rgba(255,140,26,.3);
+}

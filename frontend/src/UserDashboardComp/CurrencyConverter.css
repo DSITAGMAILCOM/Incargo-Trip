@@ -1,0 +1,265 @@
+.currency-card-wrapper {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 28px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  margin-top: 35px;
+}
+
+.currency-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.currency-header-title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.currency-icon-badge {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #ff7a00, #ff9d2f);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  box-shadow: 0 6px 16px rgba(255, 122, 0, 0.3);
+}
+
+.currency-header-title h3 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+}
+
+.currency-header-title p {
+  color: #64748b;
+  font-size: 14px;
+  margin-top: 2px;
+}
+
+.refresh-rates-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f1f5f9;
+  color: #475569;
+  border: 1px solid #cbd5e1;
+  padding: 10px 18px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.refresh-rates-btn:hover {
+  background: #e2e8f0;
+  color: #1e293b;
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.converter-box-grid {
+  display: grid;
+  grid-template-columns: 2fr 2fr 50px 2fr;
+  align-items: flex-end;
+  gap: 16px;
+  background: #f8fafc;
+  padding: 20px;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  margin-bottom: 24px;
+}
+
+.input-group-box,
+.select-group-box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.input-group-box label,
+.select-group-box label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.amount-input-wrapper {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 12px;
+  padding: 0 14px;
+  transition: border-color 0.2s ease;
+}
+
+.amount-input-wrapper:focus-within {
+  border-color: #ff7a00;
+}
+
+.currency-symbol {
+  font-size: 18px;
+  font-weight: 700;
+  color: #ff7a00;
+  margin-right: 8px;
+}
+
+.amount-input-wrapper input {
+  width: 100%;
+  padding: 12px 0;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1e293b;
+  background: transparent;
+}
+
+.select-group-box select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e293b;
+  background: #ffffff;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.select-group-box select:focus {
+  border-color: #ff7a00;
+}
+
+.swap-btn-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+
+.swap-currency-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: #ff7a00;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+  transition: all 0.25s ease;
+}
+
+.swap-currency-btn:hover {
+  background: #ff7a00;
+  color: #ffffff;
+  transform: rotate(180deg);
+}
+
+.conversion-result-banner {
+  background: linear-gradient(135deg, #fff5ec, #ffffff);
+  border: 1px solid #ffe4d1;
+  border-radius: 16px;
+  padding: 20px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.from-val {
+  font-size: 14px;
+  color: #64748b;
+  display: block;
+}
+
+.to-val {
+  font-size: 32px;
+  font-weight: 800;
+  color: #ff7a00;
+  margin: 4px 0 0 0;
+}
+
+.rate-info-tag {
+  background: rgba(255, 122, 0, 0.1);
+  color: #c45d00;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.quick-rates-strip {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.strip-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #64748b;
+}
+
+.strip-pills {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.pill {
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  color: #334155;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+@media (max-width: 900px) {
+  .converter-box-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .swap-btn-container {
+    margin-bottom: 0;
+  }
+
+  .swap-currency-btn {
+    transform: rotate(90deg);
+  }
+
+  .swap-currency-btn:hover {
+    transform: rotate(270deg);
+  }
+}
