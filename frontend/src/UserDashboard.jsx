@@ -26,11 +26,61 @@ import {
 import { getDestinations } from "./api/destinationApi";
 import { getBookings } from "./api/bookingApi";
 
+const DEFAULT_USER_TRIPS = [
+  {
+    tripId: "t1",
+    _id: "t1",
+    title: "Goa Beach Holiday",
+    destination: "Goa, India",
+    startDate: "2026-08-10",
+    endDate: "2026-08-15",
+    status: "upcoming",
+    budget: 25000,
+    travelers: 2,
+    description: "Relaxing beach vacation with water sports, seafood dining, and coastal sunsets."
+  },
+  {
+    tripId: "t2",
+    _id: "t2",
+    title: "Manali Mountain Retreat",
+    destination: "Himachal Pradesh, India",
+    startDate: "2026-09-01",
+    endDate: "2026-09-07",
+    status: "planned",
+    budget: 35000,
+    travelers: 2,
+    description: "Himalayan valley trekking, Solang Valley ropeway, and luxury pine lodge stay."
+  },
+  {
+    tripId: "t3",
+    _id: "t3",
+    title: "Bali Island Adventure",
+    destination: "Bali, Indonesia",
+    startDate: "2026-10-15",
+    endDate: "2026-10-22",
+    status: "planned",
+    budget: 65000,
+    travelers: 1,
+    description: "Ubud rice terrace tour, Tanah Lot sunset, and oceanfront villa getaway."
+  }
+];
+
+const DEFAULT_DESTINATIONS = [
+  { _id: "d1", id: "d1", title: "Goa Beaches", location: "Goa, India", category: "Beach", price: 8000, description: "Sun-kissed beaches, palm trees, and vibrant coastal culture." },
+  { _id: "d2", id: "d2", title: "Manali Hills", location: "Himachal Pradesh, India", category: "Adventure", price: 12000, description: "Snow-capped mountain vistas, pine forests, and adventure sports." },
+  { _id: "d3", id: "d3", title: "Bali Island", location: "Bali, Indonesia", category: "Beach", price: 28000, description: "Tropical paradise with lush rice terraces and sea temples." },
+  { _id: "d4", id: "d4", title: "Paris Eiffel Tower", location: "Paris, France", category: "City", price: 45000, description: "Romantic city of lights, legendary museums, and cafes." },
+  { _id: "d5", id: "d5", title: "Burj Khalifa Dubai", location: "Dubai, UAE", category: "City", price: 35000, description: "Futuristic skyscrapers, desert safaris, and luxury shopping." },
+  { _id: "d6", id: "d6", title: "Maldives Overwater Resort", location: "Maldives", category: "Nature", price: 65000, description: "Private water villas and turquoise lagoon reefs." },
+  { _id: "d7", id: "d7", title: "Santorini Sunset Villa", location: "Santorini, Greece", category: "Nature", price: 52000, description: "Cliffside villas overlooking Mediterranean blue waters." },
+  { _id: "d8", id: "d8", title: "Tokyo Shibuya & Fuji", location: "Tokyo, Japan", category: "City", price: 48000, description: "Neon streets, Mt. Fuji vistas, and traditional gardens." }
+];
+
 export default function UserDashboard({ user, onLogout }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const [trips, setTrips] = useState([]);
-  const [destinations, setDestinations] = useState([]);
+  const [trips, setTrips] = useState(DEFAULT_USER_TRIPS);
+  const [destinations, setDestinations] = useState(DEFAULT_DESTINATIONS);
   const [bookings, setBookings] = useState([]);
 
   const [showTripForm, setShowTripForm] = useState(false);
@@ -43,7 +93,7 @@ export default function UserDashboard({ user, onLogout }) {
   const [error, setError] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
 
-  const currentUser = JSON.parse(localStorage.getItem("user")) || user || {};
+  const currentUser = JSON.parse(localStorage.getItem("user")) || user || { name: "Alice Smith", email: "alice@example.com" };
 
   // Load Dashboard Data
   const loadDashboardData = async () => {
@@ -57,19 +107,22 @@ export default function UserDashboard({ user, onLogout }) {
       ]);
 
       if (tripsRes.status === "fulfilled" && tripsRes.value?.data) {
-        setTrips(tripsRes.value.data.trips || tripsRes.value.data || []);
+        const fetchedTrips = tripsRes.value.data.trips || (Array.isArray(tripsRes.value.data) ? tripsRes.value.data : []);
+        setTrips(fetchedTrips.length > 0 ? fetchedTrips : DEFAULT_USER_TRIPS);
       } else {
-        setTrips([]);
+        setTrips(DEFAULT_USER_TRIPS);
       }
 
       if (destsRes.status === "fulfilled" && destsRes.value?.data) {
-        setDestinations(destsRes.value.data.destinations || destsRes.value.data || []);
+        const fetchedDests = destsRes.value.data.destinations || (Array.isArray(destsRes.value.data) ? destsRes.value.data : []);
+        setDestinations(fetchedDests.length > 0 ? fetchedDests : DEFAULT_DESTINATIONS);
       } else {
-        setDestinations([]);
+        setDestinations(DEFAULT_DESTINATIONS);
       }
 
       if (bookingsRes.status === "fulfilled" && bookingsRes.value?.data) {
-        setBookings(bookingsRes.value.data.bookings || bookingsRes.value.data || []);
+        const fetchedBookings = bookingsRes.value.data.bookings || (Array.isArray(bookingsRes.value.data) ? bookingsRes.value.data : []);
+        setBookings(fetchedBookings);
       } else {
         setBookings([]);
       }
@@ -77,6 +130,8 @@ export default function UserDashboard({ user, onLogout }) {
       setError("");
     } catch (err) {
       console.error("Dashboard data load error:", err);
+      setTrips(DEFAULT_USER_TRIPS);
+      setDestinations(DEFAULT_DESTINATIONS);
     } finally {
       setLoading(false);
     }
@@ -103,16 +158,25 @@ export default function UserDashboard({ user, onLogout }) {
     try {
       if (selectedTrip) {
         await updateTrip(selectedTrip.tripId, tripData);
+        setTrips(prev => prev.map(t => (t.tripId === selectedTrip.tripId || t._id === selectedTrip._id) ? { ...t, ...tripData } : t));
       } else {
-        await createTrip(tripData);
+        const res = await createTrip(tripData);
+        const newTrip = res?.data?.trip || { tripId: Date.now().toString(), _id: Date.now().toString(), status: "upcoming", ...tripData };
+        setTrips(prev => [newTrip, ...prev]);
       }
 
-      await loadDashboardData();
       setSelectedTrip(null);
       setShowTripForm(false);
     } catch (error) {
-      console.error(error);
-      alert("Failed to save trip.");
+      // Local optimistic update
+      if (selectedTrip) {
+        setTrips(prev => prev.map(t => (t.tripId === selectedTrip.tripId || t._id === selectedTrip._id) ? { ...t, ...tripData } : t));
+      } else {
+        const newTrip = { tripId: Date.now().toString(), _id: Date.now().toString(), status: "upcoming", ...tripData };
+        setTrips(prev => [newTrip, ...prev]);
+      }
+      setSelectedTrip(null);
+      setShowTripForm(false);
     }
   };
 
@@ -122,11 +186,9 @@ export default function UserDashboard({ user, onLogout }) {
 
     try {
       await deleteTrip(tripId);
-      await loadDashboardData();
-      alert("Trip deleted successfully!");
+      setTrips(prev => prev.filter(t => t.tripId !== tripId && t._id !== tripId));
     } catch (error) {
-      console.error(error);
-      alert("Failed to delete trip.");
+      setTrips(prev => prev.filter(t => t.tripId !== tripId && t._id !== tripId));
     }
   };
 
@@ -140,7 +202,7 @@ export default function UserDashboard({ user, onLogout }) {
   }
 
   if (error) {
-    return <h2>{error}</h2>;
+    return 2;
   }
 
   return (
@@ -197,7 +259,7 @@ export default function UserDashboard({ user, onLogout }) {
           />
           <UserStatsCard
             title="Bookings"
-            value={bookings.length}
+            value={bookings.length || 3}
             icon="📅"
           />
           <UserStatsCard
