@@ -1,13 +1,14 @@
 {
   "name": "incargo-trip-workspace",
   "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "version": "1.0.0",
+  "type": "commonjs",
   "scripts": {
+    "start": "node backend/server.js",
+    "build": "npm --prefix backend install && npm --prefix frontend install && npm --prefix frontend run build",
     "dev:backend": "npm --prefix backend run dev",
     "dev:frontend": "npm --prefix frontend run dev",
-    "seed": "node backend/seed.js",
-    "build": "npm --prefix frontend run build"
+    "seed": "node backend/seed.js"
   },
   "dependencies": {
     "axios": "^1.18.1",
