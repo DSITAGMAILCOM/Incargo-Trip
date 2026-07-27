@@ -153,10 +153,6 @@ function LoginPage() {
 							<label htmlFor="password">Password</label>
 							<input id="password" type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
 
-							<div className="admin-credentials-hint">
-								🔑 Admin: <strong>admin@incargo.com</strong> | User: <strong>alice@example.com</strong> (Pass: <strong>user123</strong>)
-							</div>
-
 							<div className="auth-actions">
 								<button type="button" className="auth-link-btn" onClick={() => setIsSignUp(!isSignUp)}>
 									{isSignUp ? "Already registered? Sign In" : "Need an account? Sign Up"}
